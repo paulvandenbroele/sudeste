@@ -1,0 +1,117 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Sudeste Asiático · Planificador Interactivo de Viaje</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" crossorigin="" />
+  <link rel="stylesheet" href="styles.css?v=2" />
+</head>
+<body>
+  <div id="app">
+    <!-- TOP BAR -->
+    <header class="topbar">
+      <div class="brand">
+        <div class="brand-icon">🌏</div>
+        <div>
+          <h1>Sudeste Asiático · Planner</h1>
+          <p class="brand-sub">3 viajes reales de referencia + simulador de pasaje ida y vuelta</p>
+        </div>
+      </div>
+
+      <div class="layer-toggles" id="layerToggles" aria-label="Capas de viajes en el mapa">
+        <!-- Populated by JS -->
+      </div>
+
+      <div class="topbar-actions">
+        <button class="btn-ghost" id="btnFitAll" title="Centrar mapa en rutas visibles">
+          <span>🎯</span> Centrar mapa
+        </button>
+        <button class="btn-ghost" id="btnToggleMapStyle" title="Cambiar estilo de mapa (Relieve / Calles / Satélite)">
+          <span>🗺️</span> Relieve
+        </button>
+      </div>
+    </header>
+
+    <!-- MAIN SPLIT LAYOUT -->
+    <main class="workspace">
+      <!-- LEFT PANEL -->
+      <aside class="sidebar" id="sidebar">
+        <nav class="tabs" role="tablist">
+          <button class="tab active" data-tab="routes" role="tab">
+            <span class="tab-ico">🗺️</span><span>Rutas</span>
+          </button>
+          <button class="tab" data-tab="flights" role="tab">
+            <span class="tab-ico">✈️</span><span>Pasaje I/V</span>
+          </button>
+          <button class="tab" data-tab="builder" role="tab">
+            <span class="tab-ico">🧭</span><span>Mi Viaje</span>
+            <span class="tab-badge" id="myTripCountBadge">0</span>
+          </button>
+          <button class="tab" data-tab="budget" role="tab">
+            <span class="tab-ico">💰</span><span>Gastos & Hoteles</span>
+          </button>
+          <button class="tab" data-tab="guide" role="tab">
+            <span class="tab-ico">📋</span><span>Guía 101</span>
+          </button>
+        </nav>
+
+        <div class="sidebar-content">
+          <!-- TAB 1: ROUTES -->
+          <section class="tab-pane active" id="pane-routes"></section>
+
+          <!-- TAB 2: FLIGHT ADVISOR -->
+          <section class="tab-pane" id="pane-flights"></section>
+
+          <!-- TAB 3: MY TRIP BUILDER -->
+          <section class="tab-pane" id="pane-builder"></section>
+
+          <!-- TAB 4: BUDGET & HOTELS -->
+          <section class="tab-pane" id="pane-budget"></section>
+
+          <!-- TAB 5: BEGINNER GUIDE 101 -->
+          <section class="tab-pane" id="pane-guide"></section>
+        </div>
+      </aside>
+
+      <!-- MAP AREA -->
+      <section class="map-container">
+        <div id="map"></div>
+
+        <!-- Floating Map Legend -->
+        <div class="map-legend" id="mapLegend">
+          <div class="legend-row"><span class="line-sample flight"></span> Vuelo</div>
+          <div class="legend-row"><span class="line-sample ferry"></span> Ferry / Barco</div>
+          <div class="legend-row"><span class="line-sample land"></span> Auto / Tren</div>
+          <div class="legend-divider"></div>
+          <div class="legend-hint">Tocá cualquier pin o parada para explorar hoteles, costos y tips</div>
+        </div>
+
+        <!-- Floating Quick Filter Chips over Map -->
+        <div class="map-overlay-pills" id="mapOverlayPills">
+          <button class="pill-btn active" data-filter="all">Todos los destinos</button>
+          <button class="pill-btn" data-filter="hub">✈️ Aeropuertos Hub</button>
+          <button class="pill-btn" data-filter="beach">🏖️ Playas e Islas</button>
+          <button class="pill-btn" data-filter="culture">🛕 Cultura & Selva</button>
+        </div>
+
+        <!-- Right Destination Inspector Drawer -->
+        <div class="inspector-drawer hidden" id="inspectorDrawer">
+          <button class="drawer-close" id="btnCloseDrawer" aria-label="Cerrar">✕</button>
+          <div id="inspectorContent"></div>
+        </div>
+      </section>
+    </main>
+  </div>
+
+  <!-- Toast notification -->
+  <div class="toast hidden" id="toast"></div>
+
+  <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js" crossorigin=""></script>
+  <script src="data.js?v=3"></script>
+  <script src="app.js?v=3"></script>
+</body>
+</html>
